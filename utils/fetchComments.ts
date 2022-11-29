@@ -1,9 +1,11 @@
 import { Comment } from '../typings';
 
 export const fetchComments = async (tweetId: string) => {
-    const res = await fetch(`/api/getComments?tweetId=${tweetId}`);
+    const res = await fetch(`/api/getComments?id=${tweetId}`);
 
-    const comments: Comment[] = await res.json()
+    const comments: Comment[] = await res.json();
 
-    return comments
+    console.log('fetch', comments);
+
+    return comments;
 }

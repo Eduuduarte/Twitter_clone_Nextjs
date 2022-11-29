@@ -5,7 +5,8 @@ import { sanityClient } from '../../sanity';
 import { Comment } from '../../typings';
 
 const commentQuery = groq`
-*[_type=="comment" && references(*[_type=='tweet' && _id == $tweet.Id]._id)] {
+  *[_type=="comment" && references(*[_type== 'tweet' && _id == $id]._id)] 
+    {
     _id,
     ...
     } | order(_createdAt desc)
@@ -18,12 +19,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-    const { tweetId } = req.query;
+  const { id } = req.query;
 
-    const comments: Comment[] = await sanityClient.fetch(commentQuery, {
-        tweetId,
-    })
+  const comments: Comment[] = await sanityClient.fetch(commentQuery, {
+    id,
+  })
 
-
-  res.status(200).json(comments)
+  res.status(200).json(comments);
 }

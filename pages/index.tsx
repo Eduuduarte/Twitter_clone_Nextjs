@@ -41,8 +41,6 @@ interface Props {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const tweets = await fetchTweets();
-  console.log('server', tweets);
-
 
   return {
     props: {
